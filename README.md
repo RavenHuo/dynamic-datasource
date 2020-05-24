@@ -1,3 +1,7 @@
+各位看官（大佬）麻烦点个start，谢谢。
+
+![image](https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2162647198,386552379&fm=26&gp=0.jpg)
+
 ## dynamic-datasource多数据源切换。
 
 在实际生产项目中，我们有的时候需要跟据不同场景使用不同的数据源，dynamic-datasource可以解决以上痛点，且对代码侵入度基本为零，只需添加部分配置。
