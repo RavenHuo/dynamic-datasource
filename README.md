@@ -1,4 +1,4 @@
-各位看官（大佬）麻烦点个start，谢谢。
+各位看官（大佬）麻烦点个star，谢谢。
 
 ![image](https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2162647198,386552379&fm=26&gp=0.jpg)
 
