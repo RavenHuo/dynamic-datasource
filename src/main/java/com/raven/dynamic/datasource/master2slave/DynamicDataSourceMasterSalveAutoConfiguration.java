@@ -47,8 +47,9 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     @Override
     @PostConstruct
     public void init() {
-        List<MasterSlaveDataSourceProperties> masterSlaveDataSourceProperties = new ArrayList<>();
-        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourceProperties);
+        List<MasterSlaveDataSourceProperties> masterSlaveDataSourcePropertiesList = new ArrayList<>();
+        masterSlaveDataSourcePropertiesList.add(masterSlaveDataSourceProperties);
+        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourcePropertiesList);
     }
 
     @Bean(name="transactionManager")
