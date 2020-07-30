@@ -33,6 +33,7 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
     @Autowired
     private DynamicDataSourceConfigRepository dynamicDataSourceConfigRepository;
 
+    @Override
     @PostConstruct
     public void init() {
         super.initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties());

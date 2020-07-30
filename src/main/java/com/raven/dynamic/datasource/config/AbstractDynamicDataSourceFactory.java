@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @create: 2020-05-23 15:16
  */
 @Slf4j
-public abstract class AbstractDynamicDataSourceFactory implements AbstractDynamicDataSourceBean{
+public abstract class AbstractDynamicDataSourceFactory implements DynamicDataSourceFactory {
 
     private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
 
@@ -37,6 +37,8 @@ public abstract class AbstractDynamicDataSourceFactory implements AbstractDynami
      * @return
      */
     public abstract List<DynamicDataSourceProperties> loadDataSourceProperties();
+
+    public abstract void init();
 
 
     protected void checkDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties) {

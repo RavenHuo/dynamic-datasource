@@ -44,6 +44,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     private EntityManagerFactory entityManagerFactory;
 
 
+    @Override
     @PostConstruct
     public void init() {
         super.initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties());

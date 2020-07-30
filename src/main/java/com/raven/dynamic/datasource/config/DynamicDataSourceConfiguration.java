@@ -17,7 +17,7 @@ import java.util.Map;
  * @create: 2020-05-23 11:40
  */
 @Configuration
-public class DynamicDataSourceConfiguration implements AbstractDynamicDataSourceBean{
+public class DynamicDataSourceConfiguration implements DynamicDataSourceFactory {
 
     @Bean(name = DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)
     @Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)

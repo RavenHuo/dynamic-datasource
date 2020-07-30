@@ -10,7 +10,7 @@ import javax.sql.DataSource;
  * @author: huorw
  * @create: 2020-05-23 22:46
  */
-public interface AbstractDynamicDataSourceBean {
+public interface DynamicDataSourceFactory {
 
 
     @SuppressWarnings("unchecked")
