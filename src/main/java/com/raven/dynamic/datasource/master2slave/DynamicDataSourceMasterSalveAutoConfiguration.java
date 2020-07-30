@@ -29,25 +29,26 @@ import java.util.List;
  */
 @Component
 @Import({MasterSlaveTransactionManager.class})
-@EnableConfigurationProperties(MasterSlaveDataSourceConfiguration.class)
+@EnableConfigurationProperties(MasterSlaveDataSourceProperties.class)
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_MASTER_SALVE)
 @Slf4j
-public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynamicDataSourceFactory {
+public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynamicDataSourceFactory<MasterSlaveDataSourceProperties> {
+
+
+    @Resource(name="entityManagerFactory")
+    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
     private DynamicDataSource dynamicDataSourceRouting;
 
     @Autowired
-    private MasterSlaveDataSourceConfiguration masterSlaveDataSourceConfiguration;
-
-    @Resource(name="entityManagerFactory")
-    private EntityManagerFactory entityManagerFactory;
-
+    private MasterSlaveDataSourceProperties masterSlaveDataSourceProperties;
 
     @Override
     @PostConstruct
     public void init() {
-        super.initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties());
+        List<MasterSlaveDataSourceProperties> masterSlaveDataSourceProperties = new ArrayList<>();
+        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourceProperties);
     }
 
     @Bean(name="transactionManager")
@@ -65,9 +66,10 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
      * @return
      */
     @Override
-    public List<DynamicDataSourceProperties> loadDataSourceProperties() {
-        DataSourceProperties masterDataSourceProperties = masterSlaveDataSourceConfiguration.getMaster();
-        DataSourceProperties slaveDataSourceProperties = masterSlaveDataSourceConfiguration.getSlave();
+    public List<DynamicDataSourceProperties> loadDataSourceProperties(List<MasterSlaveDataSourceProperties> dataSourceProperties) {
+        MasterSlaveDataSourceProperties masterSlaveDataSourceProperties = dataSourceProperties.get(0);
+        DataSourceProperties masterDataSourceProperties = masterSlaveDataSourceProperties.getMaster();
+        DataSourceProperties slaveDataSourceProperties = masterSlaveDataSourceProperties.getSlave();
         log.info("load master-slave dynamicDataSource  ");
         if (null == masterDataSourceProperties) {
             throw new DynamicSourceException("master datasource must not empty");
@@ -90,7 +92,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
         propertiesList.add(master);
         propertiesList.add(slave);
 
-        super.checkDataSourceProperties(propertiesList);
+        checkDataSourceProperties(propertiesList);
         return propertiesList;
     }
 

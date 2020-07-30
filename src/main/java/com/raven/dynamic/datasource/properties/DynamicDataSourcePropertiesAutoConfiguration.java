@@ -22,7 +22,7 @@ import java.util.List;
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_TYPE)
 @EnableConfigurationProperties(PropertiesDataSourceConfigProperties.class)
 @Slf4j
-public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceFactory {
+public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceProperties> {
 
     @Autowired
     private DynamicDataSource dynamicDataSourceRouting;
@@ -33,7 +33,7 @@ public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynami
     @Override
     @PostConstruct
     public void init() {
-        super.initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties());
+        loadDataSource(dynamicDataSourceRouting, propertiesDataSourceConfigProperties.getDatasource());
     }
 
     /**
@@ -42,11 +42,12 @@ public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynami
      * @return
      */
     @Override
-    public List<DynamicDataSourceProperties> loadDataSourceProperties() {
+    public List<DynamicDataSourceProperties> loadDataSourceProperties(List<DynamicDataSourceProperties> dynamicDataSourceProperties) {
         log.info("load  DataSourceProperties from properties-------------------");
-        List<DynamicDataSourceProperties> dynamicDataSourceProperties = propertiesDataSourceConfigProperties.getDatasource();
-        super.checkDataSourceProperties(dynamicDataSourceProperties);
+        checkDataSourceProperties(dynamicDataSourceProperties);
         return dynamicDataSourceProperties;
     }
+
+
 
 }

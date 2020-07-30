@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Data
 @ConfigurationProperties(prefix = "dynamic.datasource")
-public class MasterSlaveDataSourceConfiguration {
+public class MasterSlaveDataSourceProperties {
 
     private DataSourceProperties master;
 

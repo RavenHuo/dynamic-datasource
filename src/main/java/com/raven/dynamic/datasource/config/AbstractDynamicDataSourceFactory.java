@@ -18,9 +18,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @create: 2020-05-23 15:16
  */
 @Slf4j
-public abstract class AbstractDynamicDataSourceFactory implements DynamicDataSourceFactory {
+public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicDataSourceFactory {
 
     private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
+
 
     public void initDynamicDataSource(DynamicDataSource dynamicDataSource, List<DynamicDataSourceProperties> dataSourcePropertiesList) {
         dataSourcePropertiesList.stream().forEach(a -> {
@@ -33,12 +34,22 @@ public abstract class AbstractDynamicDataSourceFactory implements DynamicDataSou
     }
 
     /**
-     * 加载 数据源
+     * 将 数据源属性转换为 DynamicDataSourceProperties
      * @return
      */
-    public abstract List<DynamicDataSourceProperties> loadDataSourceProperties();
+    public abstract List<DynamicDataSourceProperties> loadDataSourceProperties(List<T> dataSourceProperties);
 
+    /**
+     * 初始化方法
+     */
     public abstract void init();
+
+    /**
+     * 初始化方法
+     */
+    public void loadDataSource(DynamicDataSource dynamicDataSourceRouting, List<T> dataSourceProperties) {
+        initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties(dataSourceProperties));
+    }
 
 
     protected void checkDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties) {

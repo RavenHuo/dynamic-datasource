@@ -25,7 +25,7 @@ import java.util.List;
 @Component
 @Slf4j
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_DATABASE)
-public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceFactory {
+public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceConfigEntity> {
 
     @Autowired
     private DynamicDataSource dynamicDataSourceRouting;
@@ -36,7 +36,9 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
     @Override
     @PostConstruct
     public void init() {
-        super.initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties());
+        List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList = dynamicDataSourceConfigRepository.findAllByStatus(TableStatusEnum.NORMAL_STATUS.getCode());
+
+        loadDataSource(dynamicDataSourceRouting, dynamicDataSourceConfigEntityList);
     }
 
     /**
@@ -45,9 +47,8 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
      * @return
      */
     @Override
-    public List<DynamicDataSourceProperties> loadDataSourceProperties() {
+    public List<DynamicDataSourceProperties> loadDataSourceProperties(List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList) {
         log.info("loadDataSourceProperties from database-------------------");
-        List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList = dynamicDataSourceConfigRepository.findAllByStatus(TableStatusEnum.NORMAL_STATUS.getCode());
 
         BeanCopier beanCopier = BeanCopier.create(DynamicDataSourceConfigEntity.class, DynamicDataSourceProperties.class, false);
 
@@ -58,7 +59,7 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
             result.add(properties);
         });
 
-        super.checkDataSourceProperties(result);
+        checkDataSourceProperties(result);
         return result;
     }
 
