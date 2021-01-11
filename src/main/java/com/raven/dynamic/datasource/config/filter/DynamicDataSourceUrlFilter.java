@@ -37,7 +37,7 @@ public class DynamicDataSourceUrlFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        Pattern pattern = Pattern.compile("/" + urlPrefix + "/(?<tag>(.+?)?)/");
+        Pattern pattern = Pattern.compile("/" + urlPrefix + "/(?<tag>(.+?)?)/(.*?)");
 
         String url = httpServletRequest.getRequestURI();
 
@@ -48,7 +48,7 @@ public class DynamicDataSourceUrlFilter implements Filter {
             if (StringUtils.isNotBlank(tag)) {
                 LocalDynamicDataSourceHolder.setDbTag(tag);
 
-                String newUrl = url.replace("/" + urlPrefix + "/(?<tag>(.+?)?)/", "");
+                String newUrl = url.replaceFirst("/" + urlPrefix + "/" + tag, "");
                 log.info("replace url  {}  ->  {}", url, newUrl);
                 RequestDispatcher requestDispatcher = httpServletRequest.getRequestDispatcher(newUrl);
                 requestDispatcher.forward(servletRequest, servletResponse);

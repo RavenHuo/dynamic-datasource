@@ -1,11 +1,13 @@
 package com.raven.dynamic.datasource.config;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -19,12 +21,14 @@ import java.util.Map;
 @Configuration
 public class DynamicDataSourceConfiguration implements DynamicDataSourceFactory {
 
+    @Value("${dynamic.datasource.className:com.alibaba.druid.pool.DruidDataSource}")
+    private String datasourceClassName;
+
     @Bean(name = DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)
     @Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)
-    @ConfigurationProperties("spring.datasource.hikari")
-    public DataSource primaryDatasource(DataSourceProperties properties) {
-        HikariDataSource dataSource = createDataSource(properties, HikariDataSource.class);
-        return dataSource;
+    @ConfigurationProperties("spring.datasource")
+    public DataSource primaryDatasource(DataSourceProperties properties) throws ClassNotFoundException {
+        return createDataSource(properties, changeDataSourceClass(datasourceClassName));
     }
 
 

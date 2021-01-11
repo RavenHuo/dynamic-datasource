@@ -8,6 +8,7 @@ import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -44,12 +45,15 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     @Autowired
     private MasterSlaveDataSourceProperties masterSlaveDataSourceProperties;
 
+    @Value("${dynamic.datasource.className:com.alibaba.druid.pool.DruidDataSource}")
+    private String datasourceClassName;
+
     @Override
     @PostConstruct
-    public void init() {
+    public void init() throws ClassNotFoundException{
         List<MasterSlaveDataSourceProperties> masterSlaveDataSourcePropertiesList = new ArrayList<>();
         masterSlaveDataSourcePropertiesList.add(masterSlaveDataSourceProperties);
-        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourcePropertiesList);
+        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourcePropertiesList, datasourceClassName);
     }
 
     @Bean(name="transactionManager")
@@ -67,7 +71,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
      * @return
      */
     @Override
-    public List<DynamicDataSourceProperties> loadDataSourceProperties(List<MasterSlaveDataSourceProperties> dataSourceProperties) {
+    public List<DynamicDataSourceProperties> loadDataSourcePropertiesList(List<MasterSlaveDataSourceProperties> dataSourceProperties) {
         MasterSlaveDataSourceProperties masterSlaveDataSourceProperties = dataSourceProperties.get(0);
         DataSourceProperties masterDataSourceProperties = masterSlaveDataSourceProperties.getMaster();
         DataSourceProperties slaveDataSourceProperties = masterSlaveDataSourceProperties.getSlave();

@@ -1,7 +1,6 @@
 package com.raven.dynamic.datasource.config;
 
 import com.raven.dynamic.datasource.common.exception.DynamicSourceException;
-import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -22,10 +21,10 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
 
     private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
 
-
-    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, List<DynamicDataSourceProperties> dataSourcePropertiesList) {
+    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, DataSourceProperties datasourceProperties) {
+        List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
-            DataSource dataSource = createDataSource(a, HikariDataSource.class);
+            DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
@@ -37,20 +36,29 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
      * 将 数据源属性转换为 DynamicDataSourceProperties
      * @return
      */
-    public abstract List<DynamicDataSourceProperties> loadDataSourceProperties(List<T> dataSourceProperties);
+    public abstract List<DynamicDataSourceProperties> loadDataSourcePropertiesList(List<T> dataSourceProperties);
 
     /**
      * 初始化方法
      */
-    public abstract void init();
+    public abstract void init() throws ClassNotFoundException;
 
     /**
      * 初始化方法
      */
-    public void loadDataSource(DynamicDataSource dynamicDataSourceRouting, List<T> dataSourceProperties) {
-        initDynamicDataSource(dynamicDataSourceRouting, loadDataSourceProperties(dataSourceProperties));
+    public void loadDataSource(DynamicDataSource dynamicDataSourceRouting, List<T> dataSourceProperties, String datasourceClassName) throws ClassNotFoundException{
+        initDynamicDataSource(dynamicDataSourceRouting, buildDataSourceProperties(loadDataSourcePropertiesList(dataSourceProperties), datasourceClassName));
     }
 
+    /**
+     * 构建数据源
+     * @param dataSourceProperties
+     * @param datasourceClassName
+     * @return
+     */
+    public DataSourceProperties buildDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties,String datasourceClassName) throws ClassNotFoundException{
+        return new DataSourceProperties(dataSourceProperties, datasourceClassName);
+    }
 
     protected void checkDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties) {
         if (CollectionUtils.isEmpty(dataSourceProperties)) {

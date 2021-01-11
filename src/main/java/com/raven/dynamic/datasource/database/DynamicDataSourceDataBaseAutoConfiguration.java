@@ -3,12 +3,14 @@ package com.raven.dynamic.datasource.database;
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.TableStatusEnum;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
+import com.raven.dynamic.datasource.config.DataSourceProperties;
 import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import com.raven.dynamic.datasource.database.entity.DynamicDataSourceConfigEntity;
 import com.raven.dynamic.datasource.database.repository.DynamicDataSourceConfigRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
@@ -33,12 +35,15 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
     @Autowired
     private DynamicDataSourceConfigRepository dynamicDataSourceConfigRepository;
 
+    @Value("${dynamic.datasource.className:com.alibaba.druid.pool.DruidDataSource}")
+    private String datasourceClassName;
+
     @Override
     @PostConstruct
-    public void init() {
+    public void init() throws ClassNotFoundException{
         List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList = dynamicDataSourceConfigRepository.findAllByStatus(TableStatusEnum.NORMAL_STATUS.getCode());
 
-        loadDataSource(dynamicDataSourceRouting, dynamicDataSourceConfigEntityList);
+        loadDataSource(dynamicDataSourceRouting, dynamicDataSourceConfigEntityList, datasourceClassName);
     }
 
     /**
@@ -47,7 +52,7 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
      * @return
      */
     @Override
-    public List<DynamicDataSourceProperties> loadDataSourceProperties(List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList) {
+    public List<DynamicDataSourceProperties> loadDataSourcePropertiesList(List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList) {
         log.info("loadDataSourceProperties from database-------------------");
 
         BeanCopier beanCopier = BeanCopier.create(DynamicDataSourceConfigEntity.class, DynamicDataSourceProperties.class, false);
