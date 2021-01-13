@@ -19,17 +19,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicDataSourceFactory {
 
-    private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
+    public Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
 
-    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, DataSourceProperties datasourceProperties) {
+    public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DataSourceProperties datasourceProperties) {
         List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
             DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
-        dynamicDataSource.setTargetDataSources(dataSourceMap);
-        dynamicDataSource.afterPropertiesSet();
     }
 
     /**
@@ -46,7 +44,7 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
     /**
      * 初始化方法
      */
-    public void loadDataSource(DynamicDataSource dynamicDataSourceRouting, List<T> dataSourceProperties, String datasourceClassName) throws ClassNotFoundException{
+    public void loadDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, List<T> dataSourceProperties, String datasourceClassName) throws ClassNotFoundException{
         initDynamicDataSource(dynamicDataSourceRouting, buildDataSourceProperties(loadDataSourcePropertiesList(dataSourceProperties), datasourceClassName));
     }
 

@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  * @author: huorw
  * @create: 2020-05-21 17:46
  */
-public class DynamicDataSource extends AbstractRoutingDataSource {
+public class DynamicDataSourceRouting extends AbstractRoutingDataSource {
 
     /**
      * Determine the current lookup key. This will typically be
