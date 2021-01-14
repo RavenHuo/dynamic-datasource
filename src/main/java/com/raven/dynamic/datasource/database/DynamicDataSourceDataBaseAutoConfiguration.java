@@ -3,7 +3,6 @@ package com.raven.dynamic.datasource.database;
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.TableStatusEnum;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DataSourceProperties;
 import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import com.raven.dynamic.datasource.database.entity.DynamicDataSourceConfigEntity;

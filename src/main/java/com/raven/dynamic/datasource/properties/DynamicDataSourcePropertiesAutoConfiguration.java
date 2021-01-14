@@ -2,7 +2,6 @@ package com.raven.dynamic.datasource.properties;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DataSourceProperties;
 import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;

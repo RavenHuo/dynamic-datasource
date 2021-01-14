@@ -21,10 +21,10 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
 
     private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
 
-    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, DataSourceProperties datasourceProperties) {
-        List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
+    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, DynamicDataSourceInfo dynamicDataSourceInfo) {
+        List<DynamicDataSourceProperties> dataSourcePropertiesList = dynamicDataSourceInfo.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
-            DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
+            DataSource dataSource = createDataSource(a, dynamicDataSourceInfo.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
@@ -56,8 +56,8 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
      * @param datasourceClassName
      * @return
      */
-    public DataSourceProperties buildDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties,String datasourceClassName) throws ClassNotFoundException{
-        return new DataSourceProperties(dataSourceProperties, datasourceClassName);
+    public DynamicDataSourceInfo buildDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties,String datasourceClassName) throws ClassNotFoundException{
+        return new DynamicDataSourceInfo(dataSourceProperties, datasourceClassName);
     }
 
     protected void checkDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties) {
