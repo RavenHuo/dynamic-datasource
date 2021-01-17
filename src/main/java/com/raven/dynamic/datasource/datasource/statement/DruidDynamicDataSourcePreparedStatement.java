@@ -32,7 +32,7 @@ public class DruidDynamicDataSourcePreparedStatement extends DruidPooledPrepared
         incrementExecuteQueryCount();
         transactionRecord(getSql());
 
-        conn = connection.getConnection();
+        connection.beforeExecute();
         oracleSetRowPrefetch();
 
         try {
@@ -60,7 +60,7 @@ public class DruidDynamicDataSourcePreparedStatement extends DruidPooledPrepared
         incrementExecuteUpdateCount();
         transactionRecord(getSql());
 
-        conn = connection.getConnection();
+        connection.beforeExecute();
         try {
             return getRawStatement().executeUpdate();
         } catch (Throwable t) {

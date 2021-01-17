@@ -69,6 +69,10 @@ public class DruidDynamicDatasourceConnection extends AbstractDruidDynamicDataso
         return rtnVal;
     }
 
+    public final void beforeExecute() {
+        getConnection();
+    }
+
     public void afterExecute() {
         final DruidConnectionHolder holder = this.holder;
         holder.clearStatementCache();
