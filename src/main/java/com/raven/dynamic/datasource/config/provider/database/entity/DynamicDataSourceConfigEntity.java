@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.database.entity;
+package com.raven.dynamic.datasource.config.provider.database.entity;
 
 import lombok.Data;
 

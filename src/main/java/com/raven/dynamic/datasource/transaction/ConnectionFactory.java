@@ -16,12 +16,11 @@
  */
 package com.raven.dynamic.datasource.transaction;
 
-import com.raven.dynamic.datasource.config.DynamicDataSource;
+import com.raven.dynamic.datasource.datasource.DynamicDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 管理connection

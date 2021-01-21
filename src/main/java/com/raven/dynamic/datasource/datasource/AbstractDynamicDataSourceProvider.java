@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 import com.raven.dynamic.datasource.common.exception.DynamicSourceException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @description:
@@ -19,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @create: 2020-05-23 15:16
  */
 @Slf4j
-public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicDataSourceFactory {
+public abstract class AbstractDynamicDataSourceProvider<T> extends DynamicDataSourceProvider {
 
     public Map<String, DataSource> dataSourceMap = Collections.synchronizedMap(new HashMap<>());
 

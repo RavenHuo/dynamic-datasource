@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 
 import lombok.Data;
@@ -8,9 +8,10 @@ import java.util.List;
 
 /**
  * 数据源配置信息
+ * @author raven
  */
 @Data
-public class DynamicDataSourceInfo implements DynamicDataSourceFactory{
+public class DynamicDataSourceInfo extends DynamicDataSourceProvider {
 
     private Class<? extends DataSource> dataSource;
 

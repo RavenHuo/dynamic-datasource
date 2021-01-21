@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
 import com.raven.dynamic.datasource.transaction.ConnectionFactory;

@@ -1,16 +1,13 @@
 package com.raven.dynamic.datasource.common.constant;
 
 /**
- * @description:
+ * @description:  常量类
  * @author: huorw
  * @create: 2020-05-23 11:28
  */
 public class DynamicSourceConstant {
 
     public static final String PRIMARY_DATASOURCE_BEAN_NAME = "primaryDatasource";
-
-
-    public static final String DYNAMIC_DATASOURCE_ROUTING = "dynamicDatasourceRouting";
 
     public static final String DYNAMIC_DATASOURCE_SWITCH = "dynamic.datasource.enable";
 

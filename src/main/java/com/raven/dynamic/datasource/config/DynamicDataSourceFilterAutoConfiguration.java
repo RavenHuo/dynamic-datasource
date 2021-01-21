@@ -3,8 +3,6 @@ package com.raven.dynamic.datasource.config;
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.config.filter.DynamicDataSourceHeaderFilter;
 import com.raven.dynamic.datasource.config.filter.DynamicDataSourceUrlFilter;
-import com.raven.dynamic.datasource.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
-import com.raven.dynamic.datasource.properties.DynamicDataSourcePropertiesAutoConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.ServletComponentScan;

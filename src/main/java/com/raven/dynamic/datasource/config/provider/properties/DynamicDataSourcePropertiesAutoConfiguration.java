@@ -1,10 +1,9 @@
-package com.raven.dynamic.datasource.properties;
+package com.raven.dynamic.datasource.config.provider.properties;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
-import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DynamicDataSource;
-import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
-import com.raven.dynamic.datasource.config.DynamicDataSourceRouting;
+import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
+import com.raven.dynamic.datasource.datasource.DynamicDataSource;
+import com.raven.dynamic.datasource.datasource.DynamicDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +23,7 @@ import java.util.List;
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_TYPE)
 @EnableConfigurationProperties(PropertiesDataSourceConfigProperties.class)
 @Slf4j
-public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceProperties> {
+public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceProvider<DynamicDataSourceProperties> {
 
     @Autowired
     private PropertiesDataSourceConfigProperties propertiesDataSourceConfigProperties;

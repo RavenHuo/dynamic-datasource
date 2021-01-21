@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 
 import lombok.Data;
