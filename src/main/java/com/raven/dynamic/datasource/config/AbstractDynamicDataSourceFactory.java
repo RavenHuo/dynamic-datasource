@@ -26,7 +26,7 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
     public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DataSourceProperties datasourceProperties) {
         List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
-            DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
+            DataSource dataSource = createDataSource(a, dynamicDataSourceInfo.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
@@ -57,8 +57,8 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
      * @param datasourceClassName
      * @return
      */
-    public DataSourceProperties buildDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties,String datasourceClassName) throws ClassNotFoundException{
-        return new DataSourceProperties(dataSourceProperties, datasourceClassName);
+    public DynamicDataSourceInfo buildDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties,String datasourceClassName) throws ClassNotFoundException{
+        return new DynamicDataSourceInfo(dataSourceProperties, datasourceClassName);
     }
 
     protected void checkDataSourceProperties(List<DynamicDataSourceProperties> dataSourceProperties) {
