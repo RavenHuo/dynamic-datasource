@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.master2slave;
+package com.raven.dynamic.datasource.config.provider.master2slave;
 
 import lombok.Data;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;

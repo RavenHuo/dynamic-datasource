@@ -1,11 +1,11 @@
-package com.raven.dynamic.datasource.master2slave;
+package com.raven.dynamic.datasource.config.provider.master2slave;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.DataSourceTypeEnum;
 import com.raven.dynamic.datasource.common.exception.DynamicSourceException;
-import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DynamicDataSource;
-import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
+import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
+import com.raven.dynamic.datasource.datasource.DynamicDataSource;
+import com.raven.dynamic.datasource.datasource.DynamicDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ import java.util.List;
 @EnableConfigurationProperties(MasterSlaveDataSourceProperties.class)
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_MASTER_SALVE)
 @Slf4j
-public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynamicDataSourceFactory<MasterSlaveDataSourceProperties> {
+public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynamicDataSourceProvider<MasterSlaveDataSourceProperties> {
 
 
     @Resource(name="entityManagerFactory")

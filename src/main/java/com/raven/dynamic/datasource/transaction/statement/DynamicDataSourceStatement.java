@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.transaction.statement;
 
-import com.raven.dynamic.datasource.config.DynamicDataSource;
+import com.raven.dynamic.datasource.datasource.DynamicDataSource;
 import com.raven.dynamic.datasource.transaction.ConnectionFactory;
 
 import java.sql.*;

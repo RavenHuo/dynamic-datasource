@@ -1,6 +1,6 @@
-package com.raven.dynamic.datasource.properties;
+package com.raven.dynamic.datasource.config.provider.properties;
 
-import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
+import com.raven.dynamic.datasource.datasource.DynamicDataSourceProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

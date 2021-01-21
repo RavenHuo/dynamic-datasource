@@ -1,12 +1,12 @@
-package com.raven.dynamic.datasource.database;
+package com.raven.dynamic.datasource.config.provider.database;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.TableStatusEnum;
-import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DynamicDataSource;
-import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
-import com.raven.dynamic.datasource.database.entity.DynamicDataSourceConfigEntity;
-import com.raven.dynamic.datasource.database.repository.DynamicDataSourceConfigRepository;
+import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
+import com.raven.dynamic.datasource.datasource.DynamicDataSource;
+import com.raven.dynamic.datasource.datasource.DynamicDataSourceProperties;
+import com.raven.dynamic.datasource.config.provider.database.entity.DynamicDataSourceConfigEntity;
+import com.raven.dynamic.datasource.config.provider.database.repository.DynamicDataSourceConfigRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ import java.util.List;
 @Component
 @Slf4j
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_DATABASE)
-public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceConfigEntity> {
+public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceProvider<DynamicDataSourceConfigEntity> {
 
     @Autowired
     private DynamicDataSource dynamicDataSource;

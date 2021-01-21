@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.util.Assert;
@@ -11,17 +11,17 @@ import javax.sql.DataSource;
  * @author: huorw
  * @create: 2020-05-23 22:46
  */
-public interface DynamicDataSourceFactory {
+public class DynamicDataSourceProvider {
 
-    String DEFAULT_DATASOURCE_CLASS_NAME = "com.zaxxer.hikari.HikariDataSource";
+    private static final String DEFAULT_DATASOURCE_CLASS_NAME = "com.zaxxer.hikari.HikariDataSource";
 
     @SuppressWarnings("unchecked")
-    default  <T> T createDataSource(DataSourceProperties properties,
+    public  <T> T createDataSource(DataSourceProperties properties,
                                             Class<? extends DataSource> type) {
         return (T) properties.initializeDataSourceBuilder().type(type).build();
     }
 
-    default Class<? extends DataSource> changeDataSourceClass(String datasourceClassName) throws ClassNotFoundException {
+    public Class<? extends DataSource> changeDataSourceClass(String datasourceClassName) throws ClassNotFoundException {
         if (StringUtils.isEmpty(datasourceClassName)) {
             datasourceClassName = DEFAULT_DATASOURCE_CLASS_NAME;
         }

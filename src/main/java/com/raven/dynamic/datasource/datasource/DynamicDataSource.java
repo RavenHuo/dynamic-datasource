@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config;
+package com.raven.dynamic.datasource.datasource;
 
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
 import com.raven.dynamic.datasource.transaction.DynamicDataSourceConnection;
@@ -24,9 +24,10 @@ public class DynamicDataSource extends DynamicDataSourceRouting {
     }
 
     @Override
-    public void deleteDataSource(String dbTag, DataSource dataSource) {
-        dataSourceMap.remove(dbTag, dataSource);
+    public void deleteDataSource(String dbTag) {
+        dataSourceMap.remove(dbTag);
     }
+
 
 
     @Override

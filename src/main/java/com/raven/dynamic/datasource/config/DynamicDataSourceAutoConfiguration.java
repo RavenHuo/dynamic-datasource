@@ -1,9 +1,10 @@
 package com.raven.dynamic.datasource.config;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
-import com.raven.dynamic.datasource.database.DynamicDataSourceDataBaseAutoConfiguration;
-import com.raven.dynamic.datasource.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
-import com.raven.dynamic.datasource.properties.DynamicDataSourcePropertiesAutoConfiguration;
+
+import com.raven.dynamic.datasource.config.advisor.DataSourceSwitchAdvisor;
+import com.raven.dynamic.datasource.config.provider.database.DynamicDataSourceDataBaseAutoConfiguration;
+import com.raven.dynamic.datasource.config.provider.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
 import com.raven.dynamic.datasource.transaction.DynamicDataSourceTransactionAdvisor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.Advisor;
@@ -23,7 +24,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 @ComponentScan({"com.raven.dynamic.datasource.config"})
 @ConditionalOnProperty(value = DynamicSourceConstant.DYNAMIC_DATASOURCE_SWITCH, havingValue = "true")
-@Import({DynamicDataSourcePropertiesAutoConfiguration.class, DynamicDataSourceDataBaseAutoConfiguration.class, DynamicDataSourceMasterSalveAutoConfiguration.class})
+@Import({DefaultDynamicDataSourceConfiguration.class, DynamicDataSourceMasterSalveAutoConfiguration.class, DynamicDataSourceDataBaseAutoConfiguration.class, DynamicDataSourceMasterSalveAutoConfiguration.class})
 @Slf4j
 public class DynamicDataSourceAutoConfiguration {
 
@@ -35,11 +36,19 @@ public class DynamicDataSourceAutoConfiguration {
 
     @Role(value = BeanDefinition.ROLE_INFRASTRUCTURE)
     @Bean
-    public Advisor dynamicTransactionAdvisor() {
+    public Advisor dynamicDataSourceTransactionAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("@annotation(org.springframework.transaction.annotation.Transactional)");
         return new DefaultPointcutAdvisor(pointcut, new DynamicDataSourceTransactionAdvisor());
     }
 
+
+    @Role(value = BeanDefinition.ROLE_INFRASTRUCTURE)
+    @Bean
+    public Advisor dynamicDataSourceSwitchAdvisor() {
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression("@annotation(com.raven.dynamic.datasource.common.annotation.DataSourceSwitcher)");
+        return new DefaultPointcutAdvisor(pointcut, new DataSourceSwitchAdvisor());
+    }
 
 }
