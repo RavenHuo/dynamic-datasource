@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
  */
 @Configuration
 @ComponentScan({"com.raven.dynamic.datasource.config"})
-@ServletComponentScan({"com.pld.dynamic.datasource.spring.boot.config.filter"})
+@ServletComponentScan({"com.raven.dynamic.datasource.config.filter"})
 @ConditionalOnProperty(value = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_SWITCH, havingValue = "true")
 @Import({DynamicDataSourceHeaderFilter.class, DynamicDataSourceUrlFilter.class})
 @Slf4j
