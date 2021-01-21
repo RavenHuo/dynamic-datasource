@@ -1,7 +1,4 @@
-package com.raven.dynamic.datasource.transaction.execute;
-
-import com.raven.dynamic.datasource.transaction.DynamicDatasourceTransactionManager;
-import org.springframework.transaction.TransactionSystemException;
+package com.raven.dynamic.datasource.transaction.call;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -10,11 +7,18 @@ import java.util.LinkedList;
 /**
  * @description:
  * @author: huorw
- * @create: 2021-01-11 11:16
+ * @create: 2021-01-21 00:04
  */
-public class ExecuteTemplate<T> {
+public final class ForceExecuteTemplate<T> {
 
-    public void execute(final Collection<T> targets, final ExecuteCallback<T> callback) throws SQLException {
+    /**
+     * Force execute.
+     *
+     * @param targets targets to be executed
+     * @param callback force execute callback
+     * @throws SQLException throw SQL exception after all targets are executed
+     */
+    public void execute(final Collection<T> targets, final ForceExecuteCallback<T> callback) throws SQLException {
         Collection<SQLException> exceptions = new LinkedList<>();
         for (T each : targets) {
             try {
@@ -32,8 +36,9 @@ public class ExecuteTemplate<T> {
         }
         SQLException ex = new SQLException();
         for (SQLException each : exceptions) {
-            ex.addSuppressed(each);
+            ex.setNextException(each);
         }
         throw ex;
     }
 }
+

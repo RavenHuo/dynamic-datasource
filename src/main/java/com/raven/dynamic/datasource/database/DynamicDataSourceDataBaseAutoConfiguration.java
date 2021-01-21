@@ -3,7 +3,7 @@ package com.raven.dynamic.datasource.database;
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.TableStatusEnum;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DynamicDataSourceRouting;
+import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import com.raven.dynamic.datasource.database.entity.DynamicDataSourceConfigEntity;
 import com.raven.dynamic.datasource.database.repository.DynamicDataSourceConfigRepository;
@@ -29,7 +29,7 @@ import java.util.List;
 public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceConfigEntity> {
 
     @Autowired
-    private DynamicDataSourceRouting dynamicDataSourceRouting;
+    private DynamicDataSource dynamicDataSource;
 
     @Autowired
     private DynamicDataSourceConfigRepository dynamicDataSourceConfigRepository;
@@ -42,7 +42,7 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
     public void init() throws ClassNotFoundException{
         List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList = dynamicDataSourceConfigRepository.findAllByStatus(TableStatusEnum.NORMAL_STATUS.getCode());
 
-        loadDataSource(dynamicDataSourceRouting, dynamicDataSourceConfigEntityList, datasourceClassName);
+        loadDataSource(dynamicDataSource, dynamicDataSourceConfigEntityList, datasourceClassName);
     }
 
     /**

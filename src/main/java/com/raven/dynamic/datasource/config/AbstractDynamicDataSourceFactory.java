@@ -7,6 +7,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicDataSourceFactory {
 
-    public Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
+    public Map<String, DataSource> dataSourceMap = Collections.synchronizedMap(new HashMap<>());
 
     public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DataSourceProperties datasourceProperties) {
         List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
@@ -28,6 +30,7 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
+        dynamicDataSourceRouting.setDataSourceMap(dataSourceMap);
     }
 
     /**

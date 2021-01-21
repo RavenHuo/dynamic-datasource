@@ -4,7 +4,7 @@ import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.common.enums.DataSourceTypeEnum;
 import com.raven.dynamic.datasource.common.exception.DynamicSourceException;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
-import com.raven.dynamic.datasource.config.DynamicDataSourceRouting;
+import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     private EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    private DynamicDataSourceRouting dynamicDataSourceRouting;
+    private DynamicDataSource dynamicDataSource;
 
     @Autowired
     private MasterSlaveDataSourceProperties masterSlaveDataSourceProperties;
@@ -53,7 +53,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     public void init() throws ClassNotFoundException{
         List<MasterSlaveDataSourceProperties> masterSlaveDataSourcePropertiesList = new ArrayList<>();
         masterSlaveDataSourcePropertiesList.add(masterSlaveDataSourceProperties);
-        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourcePropertiesList, datasourceClassName);
+        loadDataSource(dynamicDataSource, masterSlaveDataSourcePropertiesList, datasourceClassName);
     }
 
     @Bean(name="transactionManager")

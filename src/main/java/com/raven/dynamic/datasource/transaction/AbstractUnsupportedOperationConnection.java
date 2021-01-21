@@ -1,6 +1,4 @@
-package com.raven.dynamic.datasource.transaction.adapter;
-
-import com.raven.dynamic.datasource.transaction.wrapper.WrapperAdapter;
+package com.raven.dynamic.datasource.transaction;
 
 import java.sql.*;
 import java.util.Map;
@@ -8,26 +6,11 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * @description:
+ * @description: 不支持的操作
  * @author: huorw
- * @create: 2021-01-11 12:00
+ * @create: 2021-01-20 23:01
  */
-public abstract class AbstractDynamicDatasourceConnection extends WrapperAdapter implements Connection {
-
-    @Override
-    public final CallableStatement prepareCall(final String sql) throws SQLException {
-        throw new SQLFeatureNotSupportedException("prepareCall");
-    }
-
-    @Override
-    public final CallableStatement prepareCall(final String sql, final int resultSetType, final int resultSetConcurrency) throws SQLException {
-        throw new SQLFeatureNotSupportedException("prepareCall");
-    }
-
-    @Override
-    public final CallableStatement prepareCall(final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability) throws SQLException {
-        throw new SQLFeatureNotSupportedException("prepareCall");
-    }
+public abstract class AbstractUnsupportedOperationConnection implements Connection {
 
     @Override
     public final String nativeSQL(final String sql) throws SQLException {
@@ -153,4 +136,5 @@ public abstract class AbstractDynamicDatasourceConnection extends WrapperAdapter
     public final void setClientInfo(final Properties properties) {
         throw new UnsupportedOperationException("setClientInfo properties");
     }
+
 }

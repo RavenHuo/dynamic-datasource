@@ -1,10 +1,10 @@
 package com.raven.dynamic.datasource.config;
 
 import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
-import com.raven.dynamic.datasource.datasource.DynamicDruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,24 +24,25 @@ import java.util.Map;
 @Configuration
 @Slf4j
 public class DefaultDynamicDataSourceConfiguration implements DynamicDataSourceFactory {
+    @Value("${dynamic.datasource.className:com.alibaba.druid.pool.DruidDataSource}")
+    private String datasourceClassName;
 
     @Bean(name = DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)
     @Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME)
     @ConfigurationProperties("spring.datasource")
-    public HikariDataSource primaryDatasource(DataSourceProperties properties) throws ClassNotFoundException {
-        return createDataSource(properties, HikariDataSource.class);
+    public DataSource primaryDatasource(DataSourceProperties properties) throws ClassNotFoundException {
+        return createDataSource(properties, changeDataSourceClass(datasourceClassName));
     }
 
     @Bean(name = "dynamicDruidDataSource")
     @Primary
-    @ConfigurationProperties("spring.datasource")
-    public DynamicDruidDataSource getDataSource(@Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME) DataSource primaryDatasource, DataSourceProperties properties) throws SQLException {
+    public DynamicDataSource getDataSource(@Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME) DataSource primaryDatasource) throws SQLException {
         log.info("dynamicDataSource loading--------------------");
-        DynamicDruidDataSource dynamicDruidDataSource = createDataSource(properties, DynamicDruidDataSource.class);
+        DynamicDataSource dynamicDruidDataSource = new DynamicDataSource();
         Map<String, DataSource> defaultDataSource = new HashMap<>(1);
         defaultDataSource.put("default", primaryDatasource);
-        dynamicDruidDataSource.afterPropertiesSet(defaultDataSource);
-        dynamicDruidDataSource.setDefaultDatasource(primaryDatasource);
+        dynamicDruidDataSource.setDataSourceMap(defaultDataSource);
+        dynamicDruidDataSource.setDefaultDataSource(primaryDatasource);
         return dynamicDruidDataSource;
     }
 }
