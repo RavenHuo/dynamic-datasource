@@ -24,9 +24,10 @@ public class DynamicDataSource extends DynamicDataSourceRouting {
     }
 
     @Override
-    public void deleteDataSource(String dbTag, DataSource dataSource) {
-        dataSourceMap.remove(dbTag, dataSource);
+    public void deleteDataSource(String dbTag) {
+        dataSourceMap.remove(dbTag);
     }
+
 
 
     @Override

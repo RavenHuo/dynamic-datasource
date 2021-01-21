@@ -32,7 +32,7 @@ public abstract class DynamicDataSourceRouting extends AbstractDataSource implem
 
     public abstract void addDataSource(String dbTag, DataSource dataSource);
 
-    public abstract void deleteDataSource(String dbTag, DataSource dataSource);
+    public abstract void deleteDataSource(String dbTag);
 
 
     public DataSource determineDataSource(String dbTag) {
@@ -42,7 +42,7 @@ public abstract class DynamicDataSourceRouting extends AbstractDataSource implem
             dataSource = this.getDefaultDataSource();
         }
         if (dataSource == null) {
-            throw new IllegalStateException("Cannot determine target DataSource for lookup key [" + dbTag + "]");
+            throw new IllegalStateException("Cannot determine default DataSource for lookup key [" + dbTag + "]");
         }
         return dataSource;
     }
