@@ -23,10 +23,10 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
 
     public Map<String, DataSource> dataSourceMap = Collections.synchronizedMap(new HashMap<>());
 
-    public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DataSourceProperties datasourceProperties) {
+    public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DynamicDataSourceInfo datasourceProperties) {
         List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
-            DataSource dataSource = createDataSource(a, dynamicDataSourceInfo.getDataSource());
+            DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
