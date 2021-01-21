@@ -1,25 +1,41 @@
 package com.raven.dynamic.datasource.config;
 
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import com.raven.dynamic.datasource.transaction.DynamicDataSourceConnection;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @description:
  * @author: huorw
- * @create: 2020-05-21 17:46
+ * @create: 2021-01-19 14:28
  */
-public class DynamicDataSource extends AbstractRoutingDataSource {
-
-    /**
-     * Determine the current lookup key. This will typically be
-     * implemented to check a thread-bound transaction context.
-     * <p>Allows for arbitrary keys. The returned key needs
-     * to match the stored lookup key type, as resolved by the
-     * {@link #resolveSpecifiedLookupKey} method.
-     */
+public class DynamicDataSource extends DynamicDataSourceRouting {
     @Override
-    public Object determineCurrentLookupKey() {
+    public String determineCurrentLookupKey() {
         return LocalDynamicDataSourceHolder.getDbTag();
     }
 
+    @Override
+    public void addDataSource(String dbTag, DataSource dataSource) {
+        dataSourceMap.put(dbTag, dataSource);
+    }
+
+    @Override
+    public void deleteDataSource(String dbTag, DataSource dataSource) {
+        dataSourceMap.remove(dbTag, dataSource);
+    }
+
+
+    @Override
+    public Connection getConnection() throws SQLException {
+        return new DynamicDataSourceConnection(this);
+    }
+
+    @Override
+    public Connection getConnection(String username, String password) throws SQLException {
+        return new DynamicDataSourceConnection(this);
+    }
 }

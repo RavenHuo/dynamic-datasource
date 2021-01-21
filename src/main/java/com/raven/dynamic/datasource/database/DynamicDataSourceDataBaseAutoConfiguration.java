@@ -29,7 +29,7 @@ import java.util.List;
 public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceConfigEntity> {
 
     @Autowired
-    private DynamicDataSource dynamicDataSourceRouting;
+    private DynamicDataSource dynamicDataSource;
 
     @Autowired
     private DynamicDataSourceConfigRepository dynamicDataSourceConfigRepository;
@@ -42,7 +42,7 @@ public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicD
     public void init() throws ClassNotFoundException{
         List<DynamicDataSourceConfigEntity> dynamicDataSourceConfigEntityList = dynamicDataSourceConfigRepository.findAllByStatus(TableStatusEnum.NORMAL_STATUS.getCode());
 
-        loadDataSource(dynamicDataSourceRouting, dynamicDataSourceConfigEntityList, datasourceClassName);
+        loadDataSource(dynamicDataSource, dynamicDataSourceConfigEntityList, datasourceClassName);
     }
 
     /**

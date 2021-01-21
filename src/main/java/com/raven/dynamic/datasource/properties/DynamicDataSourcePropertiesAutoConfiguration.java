@@ -4,6 +4,7 @@ import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.config.AbstractDynamicDataSourceFactory;
 import com.raven.dynamic.datasource.config.DynamicDataSource;
 import com.raven.dynamic.datasource.config.DynamicDataSourceProperties;
+import com.raven.dynamic.datasource.config.DynamicDataSourceRouting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,18 +27,19 @@ import java.util.List;
 public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceFactory<DynamicDataSourceProperties> {
 
     @Autowired
-    private DynamicDataSource dynamicDataSourceRouting;
-
-    @Autowired
     private PropertiesDataSourceConfigProperties propertiesDataSourceConfigProperties;
 
     @Value("${dynamic.datasource.className:com.alibaba.druid.pool.DruidDataSource}")
     private String datasourceClassName;
 
+    @Autowired
+    private DynamicDataSource dynamicDruidDataSource;
+
+
     @Override
     @PostConstruct
     public void init() throws ClassNotFoundException {
-        loadDataSource(dynamicDataSourceRouting, propertiesDataSourceConfigProperties.getDatasource(), datasourceClassName);
+        loadDataSource(dynamicDruidDataSource, propertiesDataSourceConfigProperties.getDatasource(), datasourceClassName);
     }
 
     /**
@@ -51,7 +53,4 @@ public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynami
         checkDataSourceProperties(dynamicDataSourceProperties);
         return dynamicDataSourceProperties;
     }
-
-
-
 }

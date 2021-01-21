@@ -7,6 +7,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,17 +21,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicDataSourceFactory {
 
-    private Map<Object, Object> dataSourceMap = new ConcurrentHashMap<>();
+    public Map<String, DataSource> dataSourceMap = Collections.synchronizedMap(new HashMap<>());
 
-    public void initDynamicDataSource(DynamicDataSource dynamicDataSource, DynamicDataSourceInfo dynamicDataSourceInfo) {
-        List<DynamicDataSourceProperties> dataSourcePropertiesList = dynamicDataSourceInfo.getDynamicDataSourcePropertiesList();
+    public void initDynamicDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, DynamicDataSourceInfo datasourceProperties) {
+        List<DynamicDataSourceProperties> dataSourcePropertiesList = datasourceProperties.getDynamicDataSourcePropertiesList();
         dataSourcePropertiesList.stream().forEach(a -> {
-            DataSource dataSource = createDataSource(a, dynamicDataSourceInfo.getDataSource());
+            DataSource dataSource = createDataSource(a, datasourceProperties.getDataSource());
             dataSourceMap.put(a.getDataSourceTag(), dataSource);
             log.info("load datasource from properties  tag={}", a.getDataSourceTag());
         });
-        dynamicDataSource.setTargetDataSources(dataSourceMap);
-        dynamicDataSource.afterPropertiesSet();
+        dynamicDataSourceRouting.setDataSourceMap(dataSourceMap);
     }
 
     /**
@@ -46,7 +47,7 @@ public abstract class AbstractDynamicDataSourceFactory<T> implements DynamicData
     /**
      * 初始化方法
      */
-    public void loadDataSource(DynamicDataSource dynamicDataSourceRouting, List<T> dataSourceProperties, String datasourceClassName) throws ClassNotFoundException{
+    public void loadDataSource(DynamicDataSourceRouting dynamicDataSourceRouting, List<T> dataSourceProperties, String datasourceClassName) throws ClassNotFoundException{
         initDynamicDataSource(dynamicDataSourceRouting, buildDataSourceProperties(loadDataSourcePropertiesList(dataSourceProperties), datasourceClassName));
     }
 

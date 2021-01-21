@@ -40,7 +40,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     private EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    private DynamicDataSource dynamicDataSourceRouting;
+    private DynamicDataSource dynamicDataSource;
 
     @Autowired
     private MasterSlaveDataSourceProperties masterSlaveDataSourceProperties;
@@ -53,7 +53,7 @@ public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynam
     public void init() throws ClassNotFoundException{
         List<MasterSlaveDataSourceProperties> masterSlaveDataSourcePropertiesList = new ArrayList<>();
         masterSlaveDataSourcePropertiesList.add(masterSlaveDataSourceProperties);
-        loadDataSource(dynamicDataSourceRouting, masterSlaveDataSourcePropertiesList, datasourceClassName);
+        loadDataSource(dynamicDataSource, masterSlaveDataSourcePropertiesList, datasourceClassName);
     }
 
     @Bean(name="transactionManager")
