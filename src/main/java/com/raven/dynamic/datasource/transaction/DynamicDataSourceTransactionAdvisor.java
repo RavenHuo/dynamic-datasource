@@ -3,14 +3,12 @@ package com.raven.dynamic.datasource.transaction;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-import java.util.UUID;
-
 /**
  * @description:
  * @author: huorw
  * @create: 2021-01-19 10:40
  */
-public class TransactionAdvisor implements MethodInterceptor {
+public class DynamicDataSourceTransactionAdvisor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {

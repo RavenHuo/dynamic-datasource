@@ -4,7 +4,7 @@ import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.database.DynamicDataSourceDataBaseAutoConfiguration;
 import com.raven.dynamic.datasource.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
 import com.raven.dynamic.datasource.properties.DynamicDataSourcePropertiesAutoConfiguration;
-import com.raven.dynamic.datasource.transaction.TransactionAdvisor;
+import com.raven.dynamic.datasource.transaction.DynamicDataSourceTransactionAdvisor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -38,7 +38,7 @@ public class DynamicDataSourceAutoConfiguration {
     public Advisor dynamicTransactionAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("@annotation(org.springframework.transaction.annotation.Transactional)");
-        return new DefaultPointcutAdvisor(pointcut, new TransactionAdvisor());
+        return new DefaultPointcutAdvisor(pointcut, new DynamicDataSourceTransactionAdvisor());
     }
 
 
