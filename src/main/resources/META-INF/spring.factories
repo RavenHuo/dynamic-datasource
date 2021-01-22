@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.raven.dynamic.datasource.config.DynamicDataSourceAutoConfiguration,\
-com.raven.dynamic.datasource.config.DynamicDataSourceFilterAutoConfiguration
+com.raven.dynamic.datasource.config.DynamicDataSourceAutoConfiguration

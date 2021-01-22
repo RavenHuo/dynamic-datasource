@@ -5,6 +5,7 @@ import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
 import com.raven.dynamic.datasource.config.advisor.DataSourceSwitchAdvisor;
 import com.raven.dynamic.datasource.config.provider.database.DynamicDataSourceDataBaseAutoConfiguration;
 import com.raven.dynamic.datasource.config.provider.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
+import com.raven.dynamic.datasource.config.provider.properties.DynamicDataSourcePropertiesAutoConfiguration;
 import com.raven.dynamic.datasource.plugin.DynamicDataSourceSpringCloudAutoConfiguration;
 import com.raven.dynamic.datasource.transaction.DynamicDataSourceTransactionAdvisor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,17 +25,16 @@ import javax.annotation.PostConstruct;
  * @create: 2020-05-21 16:28
  */
 @Configuration
-@ComponentScan({"com.raven.dynamic.datasource.config"})
 @ConditionalOnProperty(value = DynamicSourceConstant.DYNAMIC_DATASOURCE_SWITCH, havingValue = "true")
 @Import({DefaultDynamicDataSourceConfiguration.class,
-        DynamicDataSourceMasterSalveAutoConfiguration.class,
+        DynamicDataSourcePropertiesAutoConfiguration.class,
         DynamicDataSourceDataBaseAutoConfiguration.class,
         DynamicDataSourceMasterSalveAutoConfiguration.class,
-        DynamicDataSourceSpringCloudAutoConfiguration.class})
-@AutoConfigureBefore(DynamicDataSourceSpringCloudAutoConfiguration.class)
+        DynamicDataSourceSpringCloudAutoConfiguration.class,
+        DynamicDataSourceFilterAutoConfiguration.class})
+@AutoConfigureBefore(value = {DynamicDataSourceSpringCloudAutoConfiguration.class, DynamicDataSourceFilterAutoConfiguration.class})
 @Slf4j
 public class DynamicDataSourceAutoConfiguration {
-
 
     @PostConstruct
     public void init() {

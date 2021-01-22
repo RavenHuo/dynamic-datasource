@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ import java.util.List;
 @Component
 @Slf4j
 @ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_DATABASE)
+@ComponentScan({"com.raven.dynamic.datasource.config.provider.database"})
 public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceProvider<DynamicDataSourceConfigEntity> {
 
     @Autowired
