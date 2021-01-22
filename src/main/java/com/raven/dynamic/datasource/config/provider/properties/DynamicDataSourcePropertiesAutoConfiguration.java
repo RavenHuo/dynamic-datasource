@@ -32,13 +32,13 @@ public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynami
     private String datasourceClassName;
 
     @Autowired
-    private DynamicDataSource dynamicDruidDataSource;
+    private DynamicDataSource dynamicDataSource;
 
 
     @Override
     @PostConstruct
     public void init() throws ClassNotFoundException {
-        loadDataSource(dynamicDruidDataSource, propertiesDataSourceConfigProperties.getDatasource(), datasourceClassName);
+        loadDataSource(dynamicDataSource, propertiesDataSourceConfigProperties.getDatasource(), datasourceClassName);
     }
 
     /**

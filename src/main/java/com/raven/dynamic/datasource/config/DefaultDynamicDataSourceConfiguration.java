@@ -37,15 +37,15 @@ public class DefaultDynamicDataSourceConfiguration extends DynamicDataSourceProv
         return createDataSource(properties, changeDataSourceClass(datasourceClassName));
     }
 
-    @Bean(name = "dynamicDruidDataSource")
+    @Bean(name = "dynamicDataSource")
     @Primary
-    public DynamicDataSource getDataSource(@Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME) DataSource primaryDatasource) throws SQLException {
+    public DynamicDataSource dynamicDataSource(@Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME) DataSource primaryDatasource) throws SQLException {
         log.info("default   dynamicDataSource loading--------------------");
-        DynamicDataSource dynamicDruidDataSource = new DynamicDataSource();
+        DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map<String, DataSource> defaultDataSource = new HashMap<>(1);
         defaultDataSource.put("default", primaryDatasource);
-        dynamicDruidDataSource.setDataSourceMap(defaultDataSource);
-        dynamicDruidDataSource.setDefaultDataSource(primaryDatasource);
-        return dynamicDruidDataSource;
+        dynamicDataSource.setDataSourceMap(defaultDataSource);
+        dynamicDataSource.setDefaultDataSource(primaryDatasource);
+        return dynamicDataSource;
     }
 }
