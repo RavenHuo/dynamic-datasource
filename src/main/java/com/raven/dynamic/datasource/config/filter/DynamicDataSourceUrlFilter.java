@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 @Slf4j
 @WebFilter(urlPatterns = "/*")
 @Order(-1)
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_URL_PREFIX_TYPE)
+@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_URL_PREFIX_TYPE, matchIfMissing = false)
 public class DynamicDataSourceUrlFilter implements Filter {
 
     @Value("${dynamic.filter.key:db}")

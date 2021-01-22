@@ -23,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 @WebFilter(urlPatterns = "/*")
 @Order(-1)
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_HEADER_TYPE)
+@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_HEADER_TYPE, matchIfMissing = true)
 public class DynamicDataSourceHeaderFilter implements Filter {
 
     @Value("${dynamic.datasource.filter.key:db}")
