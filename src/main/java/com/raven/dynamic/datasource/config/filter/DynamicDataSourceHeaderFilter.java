@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.config.filter;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 @WebFilter(urlPatterns = "/*")
 @Order(-1)
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_DATASOURCE_FILTER_HEADER_TYPE, matchIfMissing = true)
+@ConditionalOnProperty(name = DynamicDataSourceConstant.DYNAMIC_DATASOURCE_FILTER_TYPE, havingValue = DynamicDataSourceConstant.DYNAMIC_DATASOURCE_FILTER_HEADER_TYPE, matchIfMissing = true)
 public class DynamicDataSourceHeaderFilter implements Filter {
 
     @Value("${dynamic.datasource.filter.key:db}")

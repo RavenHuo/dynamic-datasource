@@ -5,7 +5,7 @@ package com.raven.dynamic.datasource.common.constant;
  * @author: huorw
  * @create: 2020-05-23 11:28
  */
-public class DynamicSourceConstant {
+public class DynamicDataSourceConstant {
 
     public static final String PRIMARY_DATASOURCE_BEAN_NAME = "primaryDatasource";
 

@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.config;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 
 import com.raven.dynamic.datasource.config.advisor.DataSourceSwitchAdvisor;
 import com.raven.dynamic.datasource.config.provider.database.DynamicDataSourceDataBaseAutoConfiguration;
@@ -25,7 +25,7 @@ import javax.annotation.PostConstruct;
  * @create: 2020-05-21 16:28
  */
 @Configuration
-@ConditionalOnProperty(value = DynamicSourceConstant.DYNAMIC_DATASOURCE_SWITCH, havingValue = "true")
+@ConditionalOnProperty(value = DynamicDataSourceConstant.DYNAMIC_DATASOURCE_SWITCH, havingValue = "true")
 @Import({DefaultDynamicDataSourceConfiguration.class,
         DynamicDataSourcePropertiesAutoConfiguration.class,
         DynamicDataSourceDataBaseAutoConfiguration.class,

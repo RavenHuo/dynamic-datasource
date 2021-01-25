@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.datasource;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
 import com.raven.dynamic.datasource.transaction.DynamicDataSourceConnection;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DynamicDataSource extends DynamicDataSourceRouting {
     @Override
     public String determineCurrentLookupKey() {
-        return StringUtils.isBlank(LocalDynamicDataSourceHolder.getDbTag()) ? DynamicSourceConstant.DYNAMIC_DATASOURCE_DEFAULT_DATASOURCE_NAME : LocalDynamicDataSourceHolder.getDbTag();
+        return StringUtils.isBlank(LocalDynamicDataSourceHolder.getDbTag()) ? DynamicDataSourceConstant.DYNAMIC_DATASOURCE_DEFAULT_DATASOURCE_NAME : LocalDynamicDataSourceHolder.getDbTag();
     }
 
     @Override

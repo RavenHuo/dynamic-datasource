@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.config.provider.database;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.common.enums.TableStatusEnum;
 import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
 import com.raven.dynamic.datasource.datasource.DynamicDataSource;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_DATABASE)
+@ConditionalOnProperty(name = DynamicDataSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicDataSourceConstant.DYNAMIC_PROPERTIES_IMPL_DATABASE)
 @ComponentScan({"com.raven.dynamic.datasource.config.provider.database"})
 public class DynamicDataSourceDataBaseAutoConfiguration extends AbstractDynamicDataSourceProvider<DynamicDataSourceConfigEntity> {
 

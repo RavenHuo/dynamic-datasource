@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.config.provider.properties;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
 import com.raven.dynamic.datasource.datasource.DynamicDataSource;
 import com.raven.dynamic.datasource.datasource.DynamicDataSourceProperties;
@@ -20,7 +20,7 @@ import java.util.List;
  * @create: 2020-05-23 15:27
  */
 @Component
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_TYPE)
+@ConditionalOnProperty(name = DynamicDataSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicDataSourceConstant.DYNAMIC_PROPERTIES_IMPL_TYPE)
 @EnableConfigurationProperties(PropertiesDataSourceConfigProperties.class)
 @Slf4j
 public class DynamicDataSourcePropertiesAutoConfiguration extends AbstractDynamicDataSourceProvider<DynamicDataSourceProperties> {

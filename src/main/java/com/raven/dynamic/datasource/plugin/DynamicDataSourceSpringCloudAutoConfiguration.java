@@ -7,7 +7,7 @@ import com.netflix.hystrix.strategy.eventnotifier.HystrixEventNotifier;
 import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
 import com.netflix.hystrix.strategy.metrics.HystrixMetricsPublisher;
 import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.plugin.executor.TTLThreadPoolConfig;
 import com.raven.dynamic.datasource.plugin.feign.FeignRequestHeaderInterceptor;
 import com.raven.dynamic.datasource.plugin.hystrix.DynamicDataSourceContextConcurrencyStrategy;
@@ -28,7 +28,7 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Component
-@ConditionalOnProperty(value = DynamicSourceConstant.DYNAMIC_DATASOURCE_CLOUD_SWITCH, matchIfMissing = false)
+@ConditionalOnProperty(value = DynamicDataSourceConstant.DYNAMIC_DATASOURCE_CLOUD_SWITCH, matchIfMissing = false)
 public class DynamicDataSourceSpringCloudAutoConfiguration {
 
     @PostConstruct

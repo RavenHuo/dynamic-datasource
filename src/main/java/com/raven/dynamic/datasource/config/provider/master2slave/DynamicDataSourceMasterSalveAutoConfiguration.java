@@ -1,6 +1,6 @@
 package com.raven.dynamic.datasource.config.provider.master2slave;
 
-import com.raven.dynamic.datasource.common.constant.DynamicSourceConstant;
+import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.common.enums.DataSourceTypeEnum;
 import com.raven.dynamic.datasource.common.exception.DynamicSourceException;
 import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;
@@ -31,7 +31,7 @@ import java.util.List;
 @Component
 @Import({MasterSlaveTransactionManager.class})
 @EnableConfigurationProperties(MasterSlaveDataSourceProperties.class)
-@ConditionalOnProperty(name = DynamicSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicSourceConstant.DYNAMIC_PROPERTIES_IMPL_MASTER_SALVE)
+@ConditionalOnProperty(name = DynamicDataSourceConstant.DYNAMIC_IMPL_TYPE, havingValue = DynamicDataSourceConstant.DYNAMIC_PROPERTIES_IMPL_MASTER_SALVE)
 @Slf4j
 public class DynamicDataSourceMasterSalveAutoConfiguration extends AbstractDynamicDataSourceProvider<MasterSlaveDataSourceProperties> {
 
