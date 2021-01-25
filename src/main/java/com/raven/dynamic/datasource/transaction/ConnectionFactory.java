@@ -21,6 +21,7 @@ import com.raven.dynamic.datasource.datasource.DynamicDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 管理connection
@@ -29,7 +30,7 @@ import java.util.*;
 public class ConnectionFactory {
 
     private static final ThreadLocal<Map<String, ConnectionProxy>> CONNECTION_HOLDER =
-            ThreadLocal.withInitial(() -> Collections.synchronizedMap(new HashMap<>(16)));
+            ThreadLocal.withInitial(() -> new ConcurrentHashMap<>(8));
 
     public static void putConnection(String ds, ConnectionProxy connection) {
         Map<String, ConnectionProxy> concurrentHashMap = CONNECTION_HOLDER.get();

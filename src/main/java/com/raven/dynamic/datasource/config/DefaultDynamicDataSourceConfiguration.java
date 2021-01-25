@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @description:
@@ -42,8 +43,8 @@ public class DefaultDynamicDataSourceConfiguration extends DynamicDataSourceProv
     public DynamicDataSource dynamicDataSource(@Qualifier(DynamicSourceConstant.PRIMARY_DATASOURCE_BEAN_NAME) DataSource primaryDatasource) throws SQLException {
         log.info("default   dynamicDataSource loading--------------------");
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        Map<String, DataSource> defaultDataSource = new HashMap<>(1);
-        defaultDataSource.put("default", primaryDatasource);
+        Map<String, DataSource> defaultDataSource = new ConcurrentHashMap<>(8);
+        defaultDataSource.put(DynamicSourceConstant.DYNAMIC_DATASOURCE_DEFAULT_DATASOURCE_NAME, primaryDatasource);
         dynamicDataSource.setDataSourceMap(defaultDataSource);
         dynamicDataSource.setDefaultDataSource(primaryDatasource);
         return dynamicDataSource;

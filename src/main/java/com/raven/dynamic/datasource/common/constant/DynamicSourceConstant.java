@@ -28,4 +28,6 @@ public class DynamicSourceConstant {
     public static final String DYNAMIC_DATASOURCE_FILTER_URL_PREFIX_TYPE = "urlPrefix";
 
     public static final String DYNAMIC_DATASOURCE_CLOUD_SWITCH = "dynamic.datasource.cloud.enable";
+
+    public static final String DYNAMIC_DATASOURCE_DEFAULT_DATASOURCE_NAME = "default";
 }
