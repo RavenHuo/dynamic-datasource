@@ -5,8 +5,10 @@ import com.raven.dynamic.datasource.config.filter.DynamicDataSourceHeaderFilter;
 import com.raven.dynamic.datasource.config.filter.DynamicDataSourceUrlFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
@@ -15,7 +17,7 @@ import javax.annotation.PostConstruct;
  * @author: huorw
  * @create: 2020-05-23 18:40
  */
-@Configuration
+@Component
 @ConditionalOnProperty(value = DynamicDataSourceConstant.DYNAMIC_DATASOURCE_FILTER_SWITCH, havingValue = "true")
 @Import({DynamicDataSourceHeaderFilter.class, DynamicDataSourceUrlFilter.class})
 @Slf4j

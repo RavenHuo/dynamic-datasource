@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -19,7 +18,6 @@ import java.io.IOException;
  * @author: huorw
  * @create: 2020-05-23 20:05
  */
-@Component
 @Slf4j
 @WebFilter(urlPatterns = "/*")
 @Order(-1)
