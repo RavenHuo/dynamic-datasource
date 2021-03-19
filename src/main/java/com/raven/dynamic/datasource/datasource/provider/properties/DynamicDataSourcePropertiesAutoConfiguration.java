@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config.provider.properties;
+package com.raven.dynamic.datasource.datasource.provider.properties;
 
 import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 import com.raven.dynamic.datasource.datasource.AbstractDynamicDataSourceProvider;

@@ -3,9 +3,9 @@ package com.raven.dynamic.datasource.config;
 import com.raven.dynamic.datasource.common.constant.DynamicDataSourceConstant;
 
 import com.raven.dynamic.datasource.config.advisor.DataSourceSwitchAdvisor;
-import com.raven.dynamic.datasource.config.provider.database.DynamicDataSourceDataBaseAutoConfiguration;
-import com.raven.dynamic.datasource.config.provider.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
-import com.raven.dynamic.datasource.config.provider.properties.DynamicDataSourcePropertiesAutoConfiguration;
+import com.raven.dynamic.datasource.datasource.provider.database.DynamicDataSourceDataBaseAutoConfiguration;
+import com.raven.dynamic.datasource.datasource.provider.master2slave.DynamicDataSourceMasterSalveAutoConfiguration;
+import com.raven.dynamic.datasource.datasource.provider.properties.DynamicDataSourcePropertiesAutoConfiguration;
 import com.raven.dynamic.datasource.plugin.DynamicDataSourceSpringCloudAutoConfiguration;
 import com.raven.dynamic.datasource.transaction.DynamicDataSourceTransactionAdvisor;
 import lombok.extern.slf4j.Slf4j;

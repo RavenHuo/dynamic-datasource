@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * @description:
@@ -21,15 +22,19 @@ public class DynamicDataSource extends DynamicDataSourceRouting {
     }
 
     @Override
-    public void addDataSource(String dbTag, DataSource dataSource) {
+    protected synchronized void addDataSource(String dbTag, DataSource dataSource) {
         dataSourceMap.put(dbTag, dataSource);
     }
 
+    /**
+     * 刷新
+     *
+     * @param dataSourceMap
+     */
     @Override
-    public void deleteDataSource(String dbTag) {
-        dataSourceMap.remove(dbTag);
+    public synchronized void refreshDataSource(Map<String, DataSource> dataSourceMap) {
+        this.dataSourceMap = dataSourceMap;
     }
-
 
 
     @Override

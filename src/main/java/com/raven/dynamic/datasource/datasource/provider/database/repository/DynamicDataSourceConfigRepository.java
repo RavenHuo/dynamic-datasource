@@ -1,6 +1,6 @@
-package com.raven.dynamic.datasource.config.provider.database.repository;
+package com.raven.dynamic.datasource.datasource.provider.database.repository;
 
-import com.raven.dynamic.datasource.config.provider.database.entity.DynamicDataSourceConfigEntity;
+import com.raven.dynamic.datasource.datasource.provider.database.entity.DynamicDataSourceConfigEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

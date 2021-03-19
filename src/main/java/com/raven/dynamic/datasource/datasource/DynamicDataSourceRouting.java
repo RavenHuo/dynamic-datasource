@@ -1,19 +1,11 @@
 package com.raven.dynamic.datasource.datasource;
 
-import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
-import com.raven.dynamic.datasource.transaction.ConnectionFactory;
-import com.raven.dynamic.datasource.transaction.ConnectionProxy;
-import com.raven.dynamic.datasource.transaction.DynamicDataSourceConnection;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.datasource.AbstractDataSource;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 import java.util.Map;
 
 /**
@@ -24,15 +16,19 @@ import java.util.Map;
 @Data
 public abstract class DynamicDataSourceRouting extends AbstractDataSource implements InitializingBean {
 
-    protected Map<String, DataSource> dataSourceMap;
+    protected volatile Map<String, DataSource> dataSourceMap;
 
     private DataSource defaultDataSource;
 
     public abstract String determineCurrentLookupKey();
 
-    public abstract void addDataSource(String dbTag, DataSource dataSource);
+    protected abstract void addDataSource(String dbTag, DataSource dataSource);
 
-    public abstract void deleteDataSource(String dbTag);
+    /**
+     * 刷新
+     * @param dataSourceMap
+     */
+    public abstract void refreshDataSource(Map<String, DataSource> dataSourceMap);
 
 
     public DataSource determineDataSource(String dbTag) {

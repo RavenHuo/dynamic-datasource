@@ -1,4 +1,4 @@
-package com.raven.dynamic.datasource.config.provider.master2slave;
+package com.raven.dynamic.datasource.datasource.provider.master2slave;
 
 import com.raven.dynamic.datasource.common.enums.DataSourceTypeEnum;
 import com.raven.dynamic.datasource.config.context.LocalDynamicDataSourceHolder;
